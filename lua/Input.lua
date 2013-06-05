@@ -1,18 +1,17 @@
-GE.Input = {}
+Liq.Input = {}
 
-//What??? There is no listeners...
-function GE.Input:RegisterListener(listener)
+function Liq.Input:RegisterListener(listener)
        
 end
 
-function GE.Input:MouseClicked(mdata)
+function Liq.Input:MouseClicked(mdata)
         if clsBhover and mdata == MOUSE_LEFT then
-                GE.Draw = false
+                Liq.Draw = false
                 gui.EnableScreenClicker(false)
                
                 ------ WRITE DESTROY FUNCTION (!!!)
                 MsgN("==Sorry, now you get ton of errors==")
-                GE = nil
+                Liq = nil
         end            
 end
-hook.Add("GUIMousePressed", "GE_MouseClicked", function(mdata) GE.Input:MouseClicked(mdata) end)
+hook.Add("GUIMousePressed", "GE_MouseClicked", function(mdata) Liq.Input:MouseClicked(mdata) end)

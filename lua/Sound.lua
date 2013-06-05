@@ -1,6 +1,6 @@
-GE.Sound = {}
+Liq.Sound = {}
 
-function GE.Sound:Play(...)
+function Liq.Sound:Play(...)
 	args = {...}
 	--surface.PlaySound(sound)
 	sound = ""
@@ -25,7 +25,7 @@ function GE.Sound:Play(...)
 			--pos = args[4]
 		end
 	else
-		Error("GE.Sound:Play(sound [, pitch, volume, pos (as Vector)])")
+		Error("Liq.Sound:Play(sound [, pitch, volume, pos (as Vector)])")
 	end
 	--Vector(pos.x + plyPos.x, pos.y + plyPos.y, pos.z + plyPos.z)
 	vec = Vector(plyPos.x, plyPos.y, plyPos.z)

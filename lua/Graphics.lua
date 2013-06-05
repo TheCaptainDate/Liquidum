@@ -1,33 +1,36 @@
-GE.Graphics = {}
+Liq.Graphics = {}
 
-function GE.Graphics:MainWindows()
+local clsBcolor = Color(250, 50, 50, 255)
+local clsBhover = false
+
+function Liq.Graphics:MainWindows()
         -- frame	
         
 		-- "Красота требует жертв"
-		draw.RoundedBox(8, (ScrW() / 2) - (GE.WIDTH / 2) - 10, (ScrH() / 2) - (GE.HEIGHT / 2) - 30, GE.WIDTH + 20, GE.HEIGHT + 40, Vector(255, 150, 50, 255))
-        --surface.DrawRect((ScrW() / 2) - (GE.WIDTH / 2) - 10, (ScrH() / 2) - (GE.HEIGHT / 2) - 30, GE.WIDTH + 20, GE.HEIGHT + 40) --> TODO: terrible pos calc, rewrite (!!!)
+		draw.RoundedBox(8, (ScrW() / 2) - (Liq.WIDTH / 2) - 10, (ScrH() / 2) - (Liq.HEIGHT / 2) - 30, Liq.WIDTH + 20, Liq.HEIGHT + 40, Vector(255, 150, 50, 255))
+        --surface.DrawRect((ScrW() / 2) - (Liq.WIDTH / 2) - 10, (ScrH() / 2) - (Liq.HEIGHT / 2) - 30, Liq.WIDTH + 20, Liq.HEIGHT + 40) --> TODO: terrible pos calc, rewrite (!!!)
        	--surface.SetDrawColor(250, 150, 50, 255)
 	
         -- close button
         surface.SetDrawColor(clsBcolor)
-        surface.DrawRect((ScrW() / 2) + (GE.WIDTH + 20) / 2 - 45, (ScrH() / 2) - (GE.HEIGHT + 40) / 2 - 10, 45, 20)
+        surface.DrawRect((ScrW() / 2) + (Liq.WIDTH + 20) / 2 - 45, (ScrH() / 2) - (Liq.HEIGHT + 40) / 2 - 10, 45, 20)
         surface.SetTextColor(0, 0, 0, 255)		
-        surface.SetTextPos((ScrW() / 2) + (GE.WIDTH + 20) / 2 - 25, (ScrH() / 2) - (GE.HEIGHT + 40) / 2 - 8)
+        surface.SetTextPos((ScrW() / 2) + (Liq.WIDTH + 20) / 2 - 25, (ScrH() / 2) - (Liq.HEIGHT + 40) / 2 - 8)
         surface.SetFont("DefaultBold")
         surface.DrawText("X")
        	
         -- game title
         surface.SetTextColor(0, 0, 0, 255)
-        surface.SetTextPos((ScrW() / 2) - (GE.WIDTH / 2) + 10, (ScrH() / 2) - (GE.HEIGHT / 2) - 22)
+        surface.SetTextPos((ScrW() / 2) - (Liq.WIDTH / 2) + 10, (ScrH() / 2) - (Liq.HEIGHT / 2) - 22)
         surface.SetFont("Trebuchet19")
-        surface.DrawText(GE.Title)
+        surface.DrawText(Liq.Title)
        
         -- game background fill
-        surface.SetDrawColor(GE.Graphics.GameFill)
-        surface.DrawRect(ScrW() / 2 - GE.WIDTH / 2, ScrH() / 2 - GE.HEIGHT / 2, GE.WIDTH, GE.HEIGHT)
+        surface.SetDrawColor(Liq.Graphics.GameFill)
+        surface.DrawRect(ScrW() / 2 - Liq.WIDTH / 2, ScrH() / 2 - Liq.HEIGHT / 2, Liq.WIDTH, Liq.HEIGHT)
 end
  
-function GE.Graphics:DrawTexture(...)
+function Liq.Graphics:DrawTexture(...)
                 args = {...}
                 local texture
                 local x
@@ -46,25 +49,25 @@ function GE.Graphics:DrawTexture(...)
                 elseif #args == 6 then
                         color4 = args[6]
                 else
-                        Error("GE.Graphics:DrawTexture(texture, x, y, width, height [, color])")
+                        Error("Liq.Graphics:DrawTexture(texture, x, y, width, height [, color])")
                 end
  
        
         local id = surface.GetTextureID(texture)
         surface.SetTexture(id)
         surface.SetDrawColor(color4)
-        finalX = GE.X + x
-        finalY = GE.Y + y
+        finalX = Liq.X + x
+        finalY = Liq.Y + y
                
-        if finalX < GE.X then finalX = GE.X
-        elseif finalX > GE.X + GE.HEIGHT then finalX = GE.X + GE.HEIGHT end
+        if finalX < Liq.X then finalX = Liq.X
+        elseif finalX > Liq.X + Liq.HEIGHT then finalX = Liq.X + Liq.HEIGHT end
        
-        if finalY < GE.Y then finalY = GE.Y
-        elseif finalY > GE.Y + GE.HEIGHT then finalY = GE.Y + GE.HEIGHT  end
+        if finalY < Liq.Y then finalY = Liq.Y
+        elseif finalY > Liq.Y + Liq.HEIGHT then finalY = Liq.Y + Liq.HEIGHT  end
         surface.DrawTexturedRect(finalX, finalY, width, height)
 end
  
-function GE.Graphics:DrawRect(...)
+function Liq.Graphics:DrawRect(...)
         args = {...}
  
         if #args >= 4 and #args <=6 then
@@ -83,17 +86,17 @@ function GE.Graphics:DrawRect(...)
                         color4 = args[6]
                 end
                 else
-                Error("GE.Graphics:DrawRect(x, y, width, height [, rotation, color])")
+                Error("Liq.Graphics:DrawRect(x, y, width, height [, rotation, color])")
         end
        
-        finalPos = GE.Core:FixPosition(x, y)
+        finalPos = Liq.Core:FixPosition(x, y)
        
         surface.SetTexture(surface.GetTextureID("models/airboat/airboat_blur02"))
         surface.SetDrawColor(color4)
         surface.DrawTexturedRectRotated(finalPos.x + width, finalPos.y + height, width, height, rotation)
 end
  
-function GE.Graphics:DrawText(...)
+function Liq.Graphics:DrawText(...)
         args = {...}
        
         if #args == 5 then
@@ -104,7 +107,7 @@ function GE.Graphics:DrawText(...)
                 color4 = args[5]
         end
        
-        finalPos = GE.Core:FixPosition(x, y)
+        finalPos = Liq.Core:FixPosition(x, y)
        
         surface.SetFont(font)
         surface.SetTextPos(finalPos.x, finalPos.y)
@@ -113,22 +116,22 @@ function GE.Graphics:DrawText(...)
 end
  
 ---> Main funcs (TODO: Edit this shit!)
-function GE.Graphics:GameFrame(Title, xSize, ySize)
-        GE.Title = Title
-        GE.WIDTH = xSize
-        GE.HEIGHT = ySize
-        GE.X = ScrW() / 2 - GE.WIDTH / 2
-    	GE.Y = ScrH() / 2 - GE.HEIGHT / 2
-        GE.Draw = true 
+function Liq.Graphics:GameFrame(Title, xSize, ySize)
+        Liq.Title = Title
+        Liq.WIDTH = xSize
+        Liq.HEIGHT = ySize
+        Liq.X = ScrW() / 2 - Liq.WIDTH / 2
+    	Liq.Y = ScrH() / 2 - Liq.HEIGHT / 2
+        Liq.Draw = true 
         gui.EnableScreenClicker(true)
 end
 
-function GE.Graphics:Paint()
-        if GE.Draw and GE.Registred then
-                GE.Graphics:MainWindows()
+function Liq.Graphics:Paint()
+        if Liq.Draw and Liq.Registred then
+                Liq.Graphics:MainWindows()
                
                 // afer all
-                GE.Core.Draw()
+                Liq.Core.Draw()
         end
 end
-hook.Add("HUDPaint", "GE_Hud_Paint", function() GE.Graphics.Paint() end)
+hook.Add("HUDPaint", "GE_Hud_Paint", function() Liq.Graphics.Paint() end)
